@@ -1,4 +1,4 @@
-timestamp_ns,bid_price,bid_size,ask_price,ask_size
+timestamp,bid_price,bid_size,ask_price,ask_size
 1000000000,10000,50,10005,30
 1000100000,10000,70,10005,30
 1000200000,10001,40,10005,30

@@ -1,3 +1,5 @@
+use serde::Deserialize;
+
 /// Side of the orderbook
 pub enum Side {
     Ask,
@@ -16,7 +18,9 @@ pub type Price = u64;
 pub type Size = u64;
 
 /// Top of the book
+#[derive(Debug, Deserialize)]
 pub struct TopOfBook {
+    pub timestamp: Timestamp,
     pub bid_price: Price,
     pub bid_size: Size,
     pub ask_price: Price,
