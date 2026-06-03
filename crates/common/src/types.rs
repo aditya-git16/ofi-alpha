@@ -27,5 +27,11 @@ pub struct TopOfBook {
     pub ask_size: Size,
 }
 
+impl TopOfBook {
+    pub fn mid(&self) -> f64 {
+        return ( self.bid_price + self.ask_price ) as f64 / 2.0;
+    }
+}
+
 /// Timestamp 
 pub type Timestamp = u64;

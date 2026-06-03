@@ -1,0 +1,43 @@
+"At time t, given what I can observe about the order book, 
+can I predict where the mid price will be in the future?"
+
+Features are what you observe at time t. Labels are what actually happened after t. Every feature and label choice flows from that one question.
+
+-- features --
+
+for start we observe that we have tob data
+we can derive mid price and spread from it -> these are Features
+
+mid price -> because this is what we are trying to predict movement of 
+spread -> ofi behaves differently depending on spread
+
+we then have OFI itself 
+sum of e_n over last n events (10, 50 , 100) -> multiple horizons to see which one has better predictive power
+
+order book imbalance is another feature we will use for baseline comprison
+obi = (bid_qty - ask_qty) / (bid_qty + ask_qty)
+
+microprice (weighted mid) -> microprice = (ask_px * bid_qty + bid_px * ask_qty) / (bid_qty + ask_qty)
+
+depth -> This comes directly from the Cont paper.
+Their key result is that the OFI slope beta is inversely related to depth.
+Deep markets absorb flow without moving. Thin markets move a lot per unit of OFI. 
+
+----
+
+--- labels ----
+
+Event-horizon labels
+y_mid_10  = mid[t + 10 events] - mid[t]
+y_mid_50  = mid[t + 50 events] - mid[t]
+y_mid_100 = mid[t + 100 events] - mid[t]
+Why event-horizon: This is how the Cont paper defines it. 10 events means 10 book updates later, regardless of how much wall-clock time passed.
+ In busy markets, 10 events is milliseconds. In quiet markets, it could be seconds. 
+ This removes the confounding effect of market activity.
+
+Time-horizon labels (later)
+y_100ms = mid[t + 100ms] - mid[t]
+y_1s    = mid[t + 1s] - mid[t]
+Why time-horizon: A signal that is strong at 10 events but dead at 100ms is very different from one that persists at 1s.
+
+----

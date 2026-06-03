@@ -1,0 +1,12 @@
+for the core pipeline I will write and reason about it step by step
+
+data(csv) -> some data structure
+
+parse function feeds the data(tob) to this ds 
+we also need to calculate features and labels , require previous/future data to create the table
+
+here then we are talking about two data structures
+
+one while processing the features and one which holds the final data(table)
+
+parse -> processor -> table
