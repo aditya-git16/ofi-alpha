@@ -28,10 +28,33 @@ pub struct TopOfBook {
 }
 
 impl TopOfBook {
+    // mid price feature
     pub fn mid(&self) -> f64 {
-        return ( self.bid_price + self.ask_price ) as f64 / 2.0;
+        return (self.bid_price + self.ask_price) as f64 / 2.0;
     }
+
+    // spread
+    pub fn spread(&self) -> Price {
+        return self.bid_price - self.ask_price;
+    }
+
+    // order book imbalance feature (obi)
+    pub fn obi(&self) -> f64 {
+        return (self.bid_size - self.ask_price) as f64 / (self.bid_size + self.ask_price) as f64;
+    }
+
+    // microprice feature ( weighted mid price )
+    pub fn microprice(&self) -> f64 {
+        return (self.bid_price * self.ask_size + self.bid_size * self.ask_price) as f64
+            / (self.bid_size + self.ask_size) as f64;
+    }
+
+    // depth feature(total liquidity at tob)
+    pub fn depth(&self) -> Price {
+        return self.bid_size + self.ask_size;
+    }
+
 }
 
-/// Timestamp 
+/// Timestamp
 pub type Timestamp = u64;
